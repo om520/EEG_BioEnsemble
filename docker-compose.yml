@@ -1,0 +1,20 @@
+version: '3.8'
+
+services:
+  pipeline:
+    build: .
+    container_name: eeg_pipeline
+    volumes:
+      # Map the local data directory to the container so downloaded EDFs are cached on your host machine
+      - ./data:/app/data
+    environment:
+      # Ensures Python prints directly to the console without buffering
+      - PYTHONUNBUFFERED=1
+    # To use GPU, run: docker-compose -f docker-compose.yml -f docker-compose.gpu.yml up
+    # deploy:
+    #   resources:
+    #     reservations:
+    #       devices:
+    #         - driver: nvidia
+    #           count: 1
+    #           capabilities: [gpu]
